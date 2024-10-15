@@ -1,29 +1,50 @@
 # P4-NeC
-**Docker network**
+## Docker network
 
 **Crear unha rede en docker**
+
 docker network create --driver=bridge --subnet=172.28.0.0/16 --ip-range=172.28.5.0/24 --gateway=172.28.5.254 alexrede
 
 **Crear dous contenedores unidos a esa rede**
+
 docker run -itd --name=justo2 --network=alexrede ubuntu
 docker run -itd --name=justo1 --network=alexrede ubuntu
 
 
 **Comprobar que os contenedores están na rede**
+
 docker network inspect alexrede
 
 
 **Comprobar que os contenedores poden verse entre eles**
 
+apt install -y iputils-ping
+ping just2
+
 **Listar os contenedores conectados á rede**
+
+docker network ls
+NETWORK ID     NAME       DRIVER    SCOPE
+cef799e2c06d   alexrede   bridge    local
 
 **Listar as propiedades da rede**
 
+docker network inspect alexrede
+
 **Crea outra rede**
+
+docker network create --driver=bridge --subnet=172.29.0.0/16 --ip-range=172.29.5.0
+/24 --gateway=172.29.5.254 yustiiix
 
 **Lanza dous contenedores novos conectados a esa nova rede**
 
+docker run -itd --name=alex1 --network=yustiiix ubuntu
+docker run -itd --name=alex2 --network=yustiiix ubuntu
+
 **Comproba as posibles conexións entre os 4 contenedores**
+DESDE ALEX1
+ping justo1 -- da error al ser de distinta red
+ping alex2 -- da ping al ser de la misma red
 
 **Docker compose:**
 
