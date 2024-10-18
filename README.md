@@ -3,38 +3,38 @@
 
 **Crear unha rede en docker**
 
-docker network create --driver=bridge --subnet=172.28.0.0/16 --ip-range=172.28.5.0/24 --gateway=172.28.5.254 alexrede
+Para crear a rede empreguei o seguinte comando `docker network create --driver=bridge --subnet=172.28.0.0/16 --ip-range=172.28.5.0/24 --gateway=172.28.5.254 alexrede ` , onde o nome da rede é alexrede.
 
 **Crear dous contenedores unidos a esa rede**
 
-docker run -itd --name=justo2 --network=alexrede ubuntu
-docker run -itd --name=justo1 --network=alexrede ubuntu
+Para crear un contenedor nesta rede, empreguei o comando `docker run -itd --name=justo2 --network=alexrede ubuntu`e o comando `docker run -itd --name=justo1 --network=alexrede ubuntu`, onde debemos por o nombre que queremos que teña cada contenedor, a rede á que unimos (neste caso alexrede) e por último a imaxe.
 
 
 **Comprobar que os contenedores están na rede**
 
-docker network inspect alexrede
+Para ver os contenedores da rede, empregamos o comando `docker network inspect alexrede`.
 
 
 **Comprobar que os contenedores poden verse entre eles**
 
-apt install -y iputils-ping
-ping just2
+Para comprobalo, necesitamos entrar na terminal dun dos contenedores, e instalar ping, a través de comando `apt install -y iputils-ping`. Unha vez feito, si estamos no contenedor justo1, empregamos o comando `ping justo2` .
 
 **Listar os contenedores conectados á rede**
 
-docker network ls
+Para listar os contenedores, empregamos o comando `docker network ls`onde no meu caso listou o seguinte:
+
+```
 NETWORK ID     NAME       DRIVER    SCOPE
 cef799e2c06d   alexrede   bridge    local
+```
 
 **Listar as propiedades da rede**
-
-docker network inspect alexrede
+Para ver as propiedades, simplemento usaremos o comando `docker network inspect alexrede`.
 
 **Crea outra rede**
 
-docker network create --driver=bridge --subnet=172.29.0.0/16 --ip-range=172.29.5.0
-/24 --gateway=172.29.5.254 yustiiix
+Para crear outra rede empregaremos o comando do inicio, pero cambiando o nome e as direccions IP, é dicir, `docker network create --driver=bridge --subnet=172.29.0.0/16 --ip-range=172.29.5.0
+/24 --gateway=172.29.5.254 yustiiix` 
 
 **Lanza dous contenedores novos conectados a esa nova rede**
 
@@ -46,10 +46,9 @@ DESDE ALEX1
 ping justo1 -- da error al ser de distinta red
 ping alex2 -- da ping al ser de la misma red
 
-**Docker compose:**
+## Docker compose: 
 
 **Segue os pasos da guía de iniciación de docker-compose, e explica coas túas palabras os pasos que segues e qué fan**
 
-**Agora que sabes algo máis de docker-compose, crea un arquivo (ou varios arquivos) de configuración que ó ser lanzados cun docker-compose up, resulten nunha rede docker á que estean conectados 3 contenedores, explica os parámetros do .yaml usado**
-
-**Busca e proba 4 parámetros e configuracións diferentes que podes incluir no arquivo compose, explica qué fan. (por exemplo diferentes cousas que facer coa opción RUN)**
+~/composetest$ docker compose up
+http://localhost:8000/
